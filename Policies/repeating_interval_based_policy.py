@@ -15,7 +15,6 @@ class RepeatingIntervalBasedPolicy():
         self.num_phases =num_phases
         self.iterations = 0
         self.phase = starting_phase #'split', 'merge'
-
         self.operation = self.merge_swarms if starting_phase == 'merge' else self.split_swarms
 
     def determine_phase_intervals(self,algorithm):
@@ -27,7 +26,7 @@ class RepeatingIntervalBasedPolicy():
         factor is either merging/splitting factor."""
         self.sub_interval =  np.int64(self.phase_intervals/(1+(np.log(algorithm.dims)/np.log(factor))))
 
-    def create_swarms(self,algorithm, upper_bounds,lower_bounds,indices):
+    def create_swarm(self,algorithm, upper_bounds,lower_bounds,indices):
         """creates a swarm object, based on what the split policy needs, some attributes are needed and some arent."""
 
         return Swarm(
@@ -104,7 +103,7 @@ class RepeatingIntervalBasedPolicy():
 
 
               #make new swarm
-              new_swarms.append(self.create_swarms(algorithm,upper_bounds,lower_bounds,indices))
+              new_swarms.append(self.create_swarm(algorithm,upper_bounds,lower_bounds,indices))
 
               new_swarms[-1].position = new_position
               new_swarms[-1].velocity = new_velocity
@@ -166,7 +165,7 @@ class RepeatingIntervalBasedPolicy():
             upper_bounds = np.array(upper_bounds)
 
             #make new swarm
-            merged_swarms.append(self.create_swarms(algorithm,upper_bounds,lower_bounds,indices))
+            merged_swarms.append(self.create_swarm(algorithm,upper_bounds,lower_bounds,indices))
 
 
             # we know what the dimensions of the new swarm's arrays will be, its (self.swarm_size,indices). so allocate the memory with zeros and fill in the values to avoid creating and allocating memory for new arrays

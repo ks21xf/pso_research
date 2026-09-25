@@ -31,7 +31,7 @@ class DCPSO:
     nf - int
       -the number of iterations between each merge
     """
-    def __init__(self, swarm_size, upper_bounds, lower_bounds, dims, obj_function, num_iterations, neighborhood_size, split_policy):
+    def __init__(self, swarm_size, upper_bounds, lower_bounds, dims, obj_function, num_iterations, neighborhood_size, split_policy,verbose=True):
 
         #attributes for CPSO
         self.dims = dims
@@ -47,6 +47,8 @@ class DCPSO:
         #attributes for PSO swarms
         self.swarm_size_pso = swarm_size
         self.neighborhood_size_pso = neighborhood_size
+
+        self.verbose = verbose #prints to console when enabled
 
     def create_swarm(self):
         """initializes the algorithm as a PSO - since no swarm splitting is happening yet, we just initialize as a regular pso"""
@@ -127,7 +129,7 @@ class DCPSO:
           self.split_policy.execute(self)
 
           #print results at this arbitrary interval
-          if(iteration%100==0 or iteration == self.num_iterations-1):
+          if(self.verbose and (iteration%100==0 or iteration == self.num_iterations-1)):
               print("iteration",iteration)
               print(f"Best Fitness: {self.obj_function(np.atleast_2d(self.context_vector))}")
               print(len(self.swarms))
