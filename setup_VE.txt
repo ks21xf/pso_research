@@ -1,0 +1,16 @@
+this file contains the code to create a virtual environment. you shouldnt have to run this multiple times, just when you initialize.
+
+#load python
+module load python/3.10
+
+#create a virtual environment 've'
+virtualenv --no-download ve
+
+#store it
+source ve/bin/activate
+
+#install libraries like np
+pip install --no-index numpy
+
+#deactivate ve
+deactivate
