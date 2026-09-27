@@ -17,6 +17,8 @@ class RepeatingIntervalBasedPolicy():
         self.phase = starting_phase #'split', 'merge'
         self.operation = self.merge_swarms if starting_phase == 'merge' else self.split_swarms
 
+        self.prev_fit = 0
+
     def determine_phase_intervals(self,algorithm):
         """Determine the intervals of splitting based on the number of iterations and dimensions of the problem space provided by the algorithm"""
         self.phase_intervals = algorithm.num_iterations//self.num_phases #np.int64(algorithm.num_iterations/(1+(np.log(algorithm.dims)/np.log(self.num_phases))))
@@ -193,6 +195,11 @@ class RepeatingIntervalBasedPolicy():
         #replace the old swarms with the merged swarms and calc fitness
         algorithm.swarms = merged_swarms
 
+    def effect_of_phase(self,curr_fit):
+        print(self.prev_fit-curr_fit)
+        self.prev_fit =curr_fit
+
+
     def execute(self,algorithm):
         """executes the specific merge policy"""
 
@@ -200,6 +207,7 @@ class RepeatingIntervalBasedPolicy():
         if self.iterations == 0:
             self.determine_phase_intervals(algorithm)
             self.determine_sub_interval(algorithm,self.merge_factor if self.phase == "merge" else self.split_factor)
+            self.prev_fit = algorithm.obj_function(np.atleast_2d(algorithm.context_vector))
 
         #check if it's time for a phase change
         if(self.iterations%self.phase_intervals==0 and self.iterations!=0):
@@ -207,6 +215,10 @@ class RepeatingIntervalBasedPolicy():
             self.operation = self.merge_swarms if self.phase == 'merge' else self.split_swarms
             #determine new merge/split intervals for new m/dcpso
             self.determine_sub_interval(algorithm,self.merge_factor if self.phase == "merge" else self.split_factor)
+
+            #for research, the benefit of each phase is tracked
+            self.effect_of_phase(algorithm.obj_function(np.atleast_2d(algorithm.context_vector)))
+
 
         #split under these conditions
         if(self.iterations%self.sub_interval==0 and self.iterations!=0):

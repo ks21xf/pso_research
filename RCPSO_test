@@ -12,8 +12,8 @@ import numpy as np
 
 #testing for how number of phases affect stuff
 np.random.seed(11111)
-list_of_phases = [2,10,30,60,120,180,240,360,480]
-num_runs = 10
+list_of_phases = [180]#[2,10,30,60,120,180,240,360,480]
+num_runs = 1
 DIMS = 600
 
 for ph in list_of_phases:
@@ -31,7 +31,7 @@ for ph in list_of_phases:
             split_policy= RepeatingIntervalBasedPolicy(
                 split_factor=2,
                 merge_factor=2,
-                num_phases=2,
+                num_phases=ph,
                 starting_phase='split'
             ),
             verbose=False
