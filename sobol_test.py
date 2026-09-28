@@ -11,7 +11,7 @@ from benchmarks.benchmarks import *
 #the idea behind that is to see if the sobol analysis is largely consistent across runs
 
 #overarching variables
-np.random.seed(11111)
+np.random.seed(31111)
 N = 100
 rosenbrock_set = {(i, i + 1) for i in range(N - 1)}
 empty_set = set([])

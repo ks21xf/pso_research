@@ -33,7 +33,7 @@ for run in range(1):
     #   )
         # split_policy= RepeatingIntervalBasedPolicy(
         #     split_factor=2,
-        #     merge_factor=5,
+        #     merge_factor=2,
         #     num_phases=2,
         #     starting_phase='split'
         # )

@@ -22,7 +22,7 @@ class DiversityBasedMergePolicy():
 
     self.reset_velocity = reset_velocity
 
-  def create_swarms(self,algorithm,upper_bounds,lower_bounds,indices):
+  def create_swarm(self,algorithm,upper_bounds,lower_bounds,indices):
       return Swarm(
                   swarm_size = algorithm.swarm_size_pso,
                   upper_bounds = upper_bounds,
@@ -52,7 +52,7 @@ class DiversityBasedMergePolicy():
           upper_bounds = np.array(upper_bounds)
 
           #make new swarm
-          merged_swarm = self.create_swarms(algorithm,upper_bounds,lower_bounds,indices)
+          merged_swarm = self.create_swarm(algorithm,upper_bounds,lower_bounds,indices)
 
           # we know what the dimensions of the new swarm's arrays will be, its (self.swarm_size,indices). so allocate the memory with zeros and fill in the values to avoid creating and allocating memory for new arrays
           new_position = np.zeros((algorithm.swarm_size_pso,indices.shape[0]))

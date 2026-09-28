@@ -16,7 +16,7 @@ class IntervalBasedMergePolicy():
       #determine intervals of merging
       self.merge_intervals = np.int64(algorithm.num_iterations/(1+(np.log(algorithm.dims)/np.log(self.merge_factor)))) #self.nf
 
-  def create_swarms(self,algorithm, upper_bounds,_lower_bounds,indices):
+  def create_swarm(self,algorithm, upper_bounds,_lower_bounds,indices):
         """initialize the desired number of swarms (regular PSO algorithms) based on the dimension.
         basically populate self.swarms and make it a list of PSOs
         this is based on dims because we are creating one swarm per component"""
@@ -79,7 +79,7 @@ class IntervalBasedMergePolicy():
           upper_bounds = np.array(upper_bounds)
 
           #make new swarm
-          merged_swarms.append(self.create_swarms(algorithm,upper_bounds,lower_bounds,indices))
+          merged_swarms.append(self.create_swarm(algorithm,upper_bounds,lower_bounds,indices))
 
 
           # we know what the dimensions of the new swarm's arrays will be, its (self.swarm_size,indices). so allocate the memory with zeros and fill in the values to avoid creating and allocating memory for new arrays
