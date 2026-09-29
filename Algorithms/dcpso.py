@@ -1,7 +1,7 @@
 import numpy as np
 from Policies.interval_based_split_policy import IntervalBasedSplitPolicy
 from Policies.stagnation_based_split_policy import StagnationBasedSplitPolicy
-import pandas as pd
+#import pandas as pd
 
 class DCPSO:
     """

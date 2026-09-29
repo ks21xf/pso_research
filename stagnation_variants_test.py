@@ -65,8 +65,8 @@ all_functions = [
     (18, expanded_griewanks_plus_rosenbrock),
     (19, schaffers_f7),
 ]
-DIMS = 2
-NUM_RUNS = 1
+DIMS = 100
+NUM_RUNS = 10
 MAIN_SEED = 11111
 
 for algo_name, algo in algos.items():
