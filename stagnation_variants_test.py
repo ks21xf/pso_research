@@ -13,8 +13,18 @@ from Policies.diversity_based_merge_policy import DiversityBasedMergePolicy
 from Policies.random_merge_policy import RandomMergePolicy
 from Policies.interval_based_merge_policy import IntervalBasedMergePolicy
 from Policies.interval_based_split_policy import IntervalBasedSplitPolicy
+
 import numpy as np
 import copy
+import argparse
+
+#add and parse args
+parser = argparse.ArgumentParser(description="A script for running tests on stagnation variants.")
+parser.add_argument("-algo_name", choices=["stagnationbasedsplitpolicy", "randommergepolicy", "highdiversitybasedmergepolicy","lowdiversitybasedmergepolicy","intervalbasedmergepolicy","intervalbasedsplitpolicy"], help="the name of the algo")
+args = parser.parse_args()
+
+chosen_algo = args.algo_name #the chosen algorithm from args
+
 
 algos = {
     "stagnationbasedsplitpolicy" : StagnationBasedSplitPolicy(
@@ -22,29 +32,27 @@ algos = {
         stagnation_threshold =1e-2,
         split_factor = 3,
         ),
-    # "randommergepolicy" : RandomMergePolicy(
-    #     patience=5,
-    #     stagnation_threshold = 1e-8
-    # ),
-    # "highdiversitybasedmergepolicy" : DiversityBasedMergePolicy(
-    #     patience=5,
-    #     stagnation_threshold = 1e-8,
-    #     merge_on_high_diversity = True,
-    # ),
-    # "lowdiversitybasedmergepolicy":  DiversityBasedMergePolicy(
-    #     patience=5,
-    #     stagnation_threshold = 1e-8,
-    #     merge_on_high_diversity = False,
-    # ),
-    #     "intervalbasedmergepolicy" : IntervalBasedMergePolicy(
-    #     merge_factor=3
-    # ),
-    # "intervalbasedsplitpolicy" : IntervalBasedSplitPolicy(
-    #     split_factor=3
-    # )
+    "randommergepolicy" : RandomMergePolicy(
+        patience=5,
+        stagnation_threshold = 1e-8
+    ),
+    "highdiversitybasedmergepolicy" : DiversityBasedMergePolicy(
+        patience=5,
+        stagnation_threshold = 1e-8,
+        merge_on_high_diversity = True,
+    ),
+    "lowdiversitybasedmergepolicy":  DiversityBasedMergePolicy(
+        patience=5,
+        stagnation_threshold = 1e-8,
+        merge_on_high_diversity = False,
+    ),
+        "intervalbasedmergepolicy" : IntervalBasedMergePolicy(
+        merge_factor=3
+    ),
+    "intervalbasedsplitpolicy" : IntervalBasedSplitPolicy(
+        split_factor=3
+    )
 }
-
-
 
 all_functions = [
     (0, bent_cigar),
@@ -68,11 +76,13 @@ all_functions = [
     (18, expanded_griewanks_plus_rosenbrock),
     (19, schaffers_f7),
 ]
-DIMS = 100
-NUM_RUNS = 10
+
+DIMS = 2
+NUM_RUNS = 1
 MAIN_SEED = 11111
-for algo_idx, (algo_name, algo) in enumerate(algos.items()):
-    with open(f"output_{algo_name}.txt","w") as file:
+#for algo_idx, (algo_name, algo) in enumerate(algos.items()):
+algo_name, algo = chosen_algo,algos[chosen_algo]
+with open(f"output_{algo_name}.txt","w") as file:
         file.write(f"ALGORITHM: {algo_name}\n")
         for f_id, func in all_functions:
             results = []
