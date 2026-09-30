@@ -1,6 +1,5 @@
 #imports from python files
-from Algorithms.swarm import Swarm
-from Algorithms.dcpso import DCPSO
+from Algorithms import dcpso,mcpso
 from cec2017.functions import *
 from benchmarks.benchmarks import *
 from benchmarks.cec2017 import *
@@ -46,7 +45,7 @@ algos = {
         stagnation_threshold = 1e-8,
         merge_on_high_diversity = False,
     ),
-        "intervalbasedmergepolicy" : IntervalBasedMergePolicy(
+    "intervalbasedmergepolicy" : IntervalBasedMergePolicy(
         merge_factor=3
     ),
     "intervalbasedsplitpolicy" : IntervalBasedSplitPolicy(
@@ -93,22 +92,32 @@ with open(f"output_{algo_name}.txt","w") as file:
                 seed = MAIN_SEED + f_id *NUM_RUNS+ run #method to get a unique seed for each run
                 np.random.seed(seed)
 
-                dcpso = DCPSO(
-                    swarm_size = 100,
-                    dims = DIMS,
-                    upper_bounds = [100]*DIMS,
-                    lower_bounds = [-100]*DIMS,
-                    obj_function = func,
-                    num_iterations = 3000,
-                    neighborhood_size = 3,
-                    split_policy = copy.deepcopy(algo)
-                )
-
-                dcpso.init()
-                result, d = dcpso.run()
+                if (algo_name == "stagnationbasedsplitpolicy" or algo_name =="intervalbasedsplitpolicy"):
+                    pso = dcpso.DCPSO(
+                        swarm_size = 100,
+                        dims = 100,
+                        upper_bounds = [100]*DIMS,
+                        lower_bounds = [-100]*DIMS,
+                        obj_function = func,
+                        num_iterations = 3000,
+                        neighborhood_size = 3,
+                        split_policy = copy.deepcopy(algo)
+                    )
+                else:
+                     pso = mcpso.MCPSO(
+                        swarm_size = 100,
+                        dims = 100,
+                        upper_bounds = [100]*DIMS,
+                        lower_bounds = [-100]*DIMS,
+                        obj_function = func,
+                        num_iterations = 3000,
+                        neighborhood_size = 3,
+                        merge_policy = copy.deepcopy(algo)
+                     )
+                pso.init()
+                result, _ = pso.run()
                 file.write(f"{result[0]},\n")
                 results.append(result)
-                #print(d)
             file.write("]\n")
             file.write(f"MEAN:{sum(results)/len(results)}\n")
 
