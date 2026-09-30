@@ -77,8 +77,8 @@ all_functions = [
     (19, schaffers_f7),
 ]
 
-DIMS = 2
-NUM_RUNS = 1
+DIMS = 100
+NUM_RUNS = 10
 MAIN_SEED = 11111
 #for algo_idx, (algo_name, algo) in enumerate(algos.items()):
 algo_name, algo = chosen_algo,algos[chosen_algo]
