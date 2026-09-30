@@ -48,7 +48,7 @@ class MCPSO:
         self.swarm_size_pso = swarm_size
         self.neighborhood_size_pso = neighborhood_size
 
-    def create_swarms(self):
+    def create_swarm(self):
         """initialize the desired number of swarms (regular PSO algorithms) based on the dimension.
         basically populate self.swarms and make it a list of PSOs
         this is based on dims because we are creating one swarm per component"""
@@ -57,7 +57,7 @@ class MCPSO:
         for i in range(self.dims):
 
             #create a swarm and append
-            self.swarms.append(self.merge_policy.create_swarms(self,[self.upper_bounds[i]],[self.lower_bounds[i]],[i]))
+            self.swarms.append(self.merge_policy.create_swarm(self,[self.upper_bounds[i]],[self.lower_bounds[i]],[i]))
 
         self._build_context_vector(False)
 
@@ -141,7 +141,7 @@ class MCPSO:
 
     def init(self):
         """initializes algorithm by creating the initial swarms and setting their fitness"""
-        self.create_swarms()
+        self.create_swarm()
         self.set_swarm_fitness(init=True)
 
     def run(self):

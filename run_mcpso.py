@@ -1,7 +1,7 @@
 #from Algorithms.dcpso import DCPSO
 from Algorithms.mcpso import MCPSO
 from cec2017.functions import f4
-from benchmarks.cec2017 import rosenbrock
+from benchmarks.cec2017 import *
 from benchmarks.benchmarks import standard_rosenbrock
 from Policies.interval_based_split_policy import IntervalBasedSplitPolicy
 from Policies.stagnation_based_split_policy import StagnationBasedSplitPolicy
@@ -12,7 +12,7 @@ from Policies.repeating_interval_based_policy import RepeatingIntervalBasedPolic
 import numpy as np
 
 #np.random.seed(42)
-DIMS = 4
+DIMS = 100
 results = []
 for run in range(1):
     mcpso = MCPSO(
@@ -20,7 +20,7 @@ for run in range(1):
         dims = DIMS,
         upper_bounds = [1000]*DIMS,
         lower_bounds = [-1000]*DIMS,
-        obj_function = standard_rosenbrock,
+        obj_function = sum_diff_pow,
         num_iterations = 3000,
         neighborhood_size = 3,
         merge_policy= IntervalBasedMergePolicy(
