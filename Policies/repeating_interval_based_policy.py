@@ -217,7 +217,7 @@ class RepeatingIntervalBasedPolicy():
             self.determine_sub_interval(algorithm,self.merge_factor if self.phase == "merge" else self.split_factor)
 
             #for research, the benefit of each phase is tracked
-            self.effect_of_phase(algorithm.obj_function(np.atleast_2d(algorithm.context_vector)))
+            #self.effect_of_phase(algorithm.obj_function(np.atleast_2d(algorithm.context_vector)))
 
 
         #split under these conditions

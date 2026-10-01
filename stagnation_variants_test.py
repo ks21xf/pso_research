@@ -101,7 +101,7 @@ with open(f"output_{algo_name}.txt","w") as file:
                 if (algo_name == "stagnationbasedsplitpolicy" or algo_name =="intervalbasedsplitpolicy" or algo_name == "repeatingintervalbasedpolicy"):
                     pso = dcpso.DCPSO(
                         swarm_size = 100,
-                        dims = 100,
+                        dims = DIMS,
                         upper_bounds = [100]*DIMS,
                         lower_bounds = [-100]*DIMS,
                         obj_function = func,
