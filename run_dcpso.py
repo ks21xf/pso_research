@@ -31,15 +31,15 @@ for run in range(1):
     #     split_policy = IntervalBasedSplitPolicy(
     #         split_factor = 2
     #   )
-        # split_policy= RepeatingIntervalBasedPolicy(
-        #     split_factor=2,
-        #     merge_factor=2,
-        #     num_phases=2,
-        #     starting_phase='split'
-        # )
-        split_policy = InteractionBasedPolicy(
-            split_factor = 2
-      )
+        split_policy= RepeatingIntervalBasedPolicy(
+            split_factor=2,
+            merge_factor=2,
+            num_phases=60,
+            starting_phase='split'
+        )
+    #     split_policy = InteractionBasedPolicy(
+    #         split_factor = 2
+    #   )
     )
 
     dcpso.init()

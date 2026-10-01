@@ -50,6 +50,12 @@ algos = {
     ),
     "intervalbasedsplitpolicy" : IntervalBasedSplitPolicy(
         split_factor=3
+    ),
+    "repeatingintervalbasedpolicy": RepeatingIntervalBasedPolicy(
+            split_factor=2,
+            merge_factor=2,
+            num_phases=60,
+            starting_phase='split'
     )
 }
 
@@ -92,7 +98,7 @@ with open(f"output_{algo_name}.txt","w") as file:
                 seed = MAIN_SEED + f_id *NUM_RUNS+ run #method to get a unique seed for each run
                 np.random.seed(seed)
 
-                if (algo_name == "stagnationbasedsplitpolicy" or algo_name =="intervalbasedsplitpolicy"):
+                if (algo_name == "stagnationbasedsplitpolicy" or algo_name =="intervalbasedsplitpolicy" or algo_name == "repeatingintervalbasedpolicy"):
                     pso = dcpso.DCPSO(
                         swarm_size = 100,
                         dims = 100,
