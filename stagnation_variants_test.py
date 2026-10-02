@@ -19,7 +19,7 @@ import argparse
 
 #add and parse args
 parser = argparse.ArgumentParser(description="A script for running tests on stagnation variants.")
-parser.add_argument("-algo_name", choices=["stagnationbasedsplitpolicy", "randommergepolicy", "highdiversitybasedmergepolicy","lowdiversitybasedmergepolicy","intervalbasedmergepolicy","intervalbasedsplitpolicy"], help="the name of the algo")
+parser.add_argument("-algo_name", choices=["stagnationbasedsplitpolicy", "randommergepolicy", "highdiversitybasedmergepolicy","repeatingbasedintervalpolicy","intervalbasedmergepolicy","intervalbasedsplitpolicy","repeatingintervalbasedpolicy"], help="the name of the algo")
 args = parser.parse_args()
 
 chosen_algo = args.algo_name #the chosen algorithm from args

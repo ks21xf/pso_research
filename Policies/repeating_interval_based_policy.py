@@ -23,10 +23,20 @@ class RepeatingIntervalBasedPolicy():
         """Determine the intervals of splitting based on the number of iterations and dimensions of the problem space provided by the algorithm"""
         self.phase_intervals = algorithm.num_iterations//self.num_phases #np.int64(algorithm.num_iterations/(1+(np.log(algorithm.dims)/np.log(self.num_phases))))
 
+    def determine_init_sub_interval(self,algorithm,factor):
+        """initial sub intervals include a +1 in their calculations
+        subsequent ones shouldnt bc the the starting configuration would run twice.
+        it would run from the prev phase and again for the same amount of time during the start of the new phase
+        so to remedy take away one phase from that calculation (see next function)"""
+        self.sub_interval =  np.int64(self.phase_intervals/(1+(np.log(algorithm.dims)/np.log(factor))))
+
+
     def determine_sub_interval(self,algorithm,factor):
         """determines the merging/splitting intervals for the current phase.
-        factor is either merging/splitting factor."""
-        self.sub_interval =  np.int64(self.phase_intervals/(1+(np.log(algorithm.dims)/np.log(factor))))
+        factor is either merging/splitting factor.
+        see above function for why we remove +1 from denom"""
+        self.sub_interval =  np.int64(self.phase_intervals/((np.log(algorithm.dims)/np.log(factor))))
+
 
     def create_swarm(self,algorithm, upper_bounds,lower_bounds,indices):
         """creates a swarm object, based on what the split policy needs, some attributes are needed and some arent."""

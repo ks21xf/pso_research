@@ -38,10 +38,10 @@ all_functions = [
     (19, schaffers_f7),
 ]
 
-DIMS = 100
+DIMS = 30
 NUM_RUNS = 10
 MAIN_SEED = 11111
-phases = [2,5,10,20,40,60,80,100,150,200,250,300]
+phases = [2,5,10,20,40,60,80,100,200,300]
 
 
 print(f"ALGORITHM: repeatingintervalbasedpolicy")
