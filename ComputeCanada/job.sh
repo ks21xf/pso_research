@@ -7,4 +7,4 @@ module load python/3.10
 
 source ve/bin/activate #remove if not using a VE
 
-python stagnation_variants_test.py
+python sobol_test.py
