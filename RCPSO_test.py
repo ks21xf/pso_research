@@ -46,13 +46,12 @@ phases = [2,5,10,20,40,60,80,100,200,300]
 
 print(f"ALGORITHM: repeatingintervalbasedpolicy")
 for phase in phases:
-        for f_id, func in all_functions:
-            results = []
-            print(f"NUM_PHASES: {phase}")
-            print(f"RUNS: [")
-            for run in range(NUM_RUNS):
+    results = []
+    print(f"NUM_PHASES: {phase}")
+    print(f"RUNS: [")
+    for run in range(NUM_RUNS):
 
-                seed = MAIN_SEED + f_id *NUM_RUNS+ run #method to get a unique seed for each run
+                seed = MAIN_SEED + run #method to get a unique seed for each run
                 np.random.seed(seed)
 
                 pso = dcpso.DCPSO(
@@ -60,7 +59,7 @@ for phase in phases:
                     dims = DIMS,
                     upper_bounds = [100]*DIMS,
                     lower_bounds = [-100]*DIMS,
-                    obj_function = func,
+                    obj_function = standard_rosenbrock,
                     num_iterations = 3000,
                     neighborhood_size = 3,
                     split_policy = RepeatingIntervalBasedPolicy(
@@ -75,7 +74,7 @@ for phase in phases:
                 result, _ = pso.run()
                 print(f"{result[0]}")
                 results.append(result)
-            print("]")
-            print(f"MEAN:{sum(results)/len(results)}")
+    print("]")
+    print(f"MEAN:{sum(results)/len(results)}")
 
 

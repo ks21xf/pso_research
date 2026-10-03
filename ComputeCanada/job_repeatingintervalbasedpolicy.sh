@@ -7,4 +7,4 @@ module load python/3.10
 
 source ve/bin/activate #remove if not using a VE
 
-python stagnation_variants_test.py -algo_name 'repeatingbasedintervalpolicy'
+python stagnation_variants_test.py -algo_name 'repeatingintervalbasedpolicy'
