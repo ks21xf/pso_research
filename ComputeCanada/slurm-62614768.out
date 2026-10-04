@@ -1,0 +1,3 @@
+usage: stagnation_variants_test.py [-h]
+                                   [-algo_name {stagnationbasedsplitpolicy,randommergepolicy,highdiversitybasedmergepolicy,repeatingbasedintervalpolicy,intervalbasedmergepolicy,intervalbasedsplitpolicy,repeatingintervalbasedpolicy}]
+stagnation_variants_test.py: error: argument -algo_name: invalid choice: 'stagationbasedsplitpolicy' (choose from 'stagnationbasedsplitpolicy', 'randommergepolicy', 'highdiversitybasedmergepolicy', 'repeatingbasedintervalpolicy', 'intervalbasedmergepolicy', 'intervalbasedsplitpolicy', 'repeatingintervalbasedpolicy')
