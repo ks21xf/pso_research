@@ -10,11 +10,11 @@ from Policies.repeating_interval_based_policy import RepeatingIntervalBasedPolic
 from Policies.interaction_based_policy import InteractionBasedPolicy
 import numpy as np
 
-np.random.seed(32)
+#np.random.seed(32)
 DIMS = 100
 
 results = []
-for run in range(10):
+for run in range(1):
     dcpso = DCPSO(
         swarm_size = 100,
         dims = DIMS,
@@ -23,20 +23,20 @@ for run in range(10):
         obj_function = standard_rosenbrock,
         num_iterations = 3000,
         neighborhood_size = 3,
-        # split_policy = StagnationBasedSplitPolicy(
-        #         patience = 2,
-        #         stagnation_threshold =1e-2,
-        #         split_factor = 3,
-        # )
+        split_policy = StagnationBasedSplitPolicy(
+                patience = 2,
+                stagnation_threshold =1e-2,
+                split_factor = 3,
+        )
     #     split_policy = IntervalBasedSplitPolicy(
     #         split_factor = 2
     #   )
-        split_policy= RepeatingIntervalBasedPolicy(
-            split_factor=2,
-            merge_factor=2,
-            num_phases=10,
-            starting_phase='split'
-        )
+        # split_policy= RepeatingIntervalBasedPolicy(
+        #     split_factor=2,
+        #     merge_factor=2,
+        #     num_phases=10,
+        #     starting_phase='split'
+        # )
     #     split_policy = InteractionBasedPolicy(
     #         split_factor = 2
     #   )
