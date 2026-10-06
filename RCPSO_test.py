@@ -41,7 +41,7 @@ all_functions = [
 DIMS = 100
 NUM_RUNS = 10
 MAIN_SEED = 11111
-phases = [400,600]#[2,5,10,20,40,60,80,100,200,300]
+phases = [2,5,10,20,40,60,80,100,200,300,400,600]
 
 
 print(f"ALGORITHM: repeatingintervalbasedpolicy")
@@ -71,7 +71,7 @@ for phase in phases:
                     verbose=False
                 )
                 pso.init()
-                result, _ = pso.run()
+                result, *_ = pso.run()
                 print(f"{result[0]}")
                 results.append(result)
     print("]")
