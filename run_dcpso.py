@@ -14,38 +14,41 @@ import numpy as np
 DIMS = 100
 
 results = []
-for run in range(1):
-    dcpso = DCPSO(
-        swarm_size = 100,
-        dims = DIMS,
-        upper_bounds = [1000]*DIMS,
-        lower_bounds = [-1000]*DIMS,
-        obj_function = standard_rosenbrock,
-        num_iterations = 3000,
-        neighborhood_size = 3,
-        split_policy = StagnationBasedSplitPolicy(
-                patience = 2,
-                stagnation_threshold =1e-2,
-                split_factor = 3,
+SE = [1e-1,1,1e2,1e3]
+for value in SE:
+    print(f"SE ={value}")
+    for run in range(10):
+        dcpso = DCPSO(
+            swarm_size = 100,
+            dims = DIMS,
+            upper_bounds = [1000]*DIMS,
+            lower_bounds = [-1000]*DIMS,
+            obj_function = standard_rosenbrock,
+            num_iterations = 3000,
+            neighborhood_size = 3,
+            split_policy = StagnationBasedSplitPolicy(
+                    patience = 2,
+                    stagnation_threshold =value,
+                    split_factor = 3,
+            ),
+            verbose=False
+        #     split_policy = IntervalBasedSplitPolicy(
+        #         split_factor = 2
+        #   )
+            # split_policy= RepeatingIntervalBasedPolicy(
+            #     split_factor=2,
+            #     merge_factor=2,
+            #     num_phases=10,
+            #     starting_phase='split'
+            # )
+        #     split_policy = InteractionBasedPolicy(
+        #         split_factor = 2
+        #   )
         )
-    #     split_policy = IntervalBasedSplitPolicy(
-    #         split_factor = 2
-    #   )
-        # split_policy= RepeatingIntervalBasedPolicy(
-        #     split_factor=2,
-        #     merge_factor=2,
-        #     num_phases=10,
-        #     starting_phase='split'
-        # )
-    #     split_policy = InteractionBasedPolicy(
-    #         split_factor = 2
-    #   )
-    )
 
-    dcpso.init()
-    result, cv, data  = dcpso.run()
-    results.append(result)
-    print(cv)
+        dcpso.init()
+        result, _, _  = dcpso.run()
+        results.append(result)
 
-print(data)
+    print(results)
 
