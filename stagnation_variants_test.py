@@ -121,7 +121,7 @@ with open(f"output_{algo_name}.txt","w") as file:
                         merge_policy = copy.deepcopy(algo)
                      )
                 pso.init()
-                result, _ = pso.run()
+                result, *_ = pso.run()
                 file.write(f"{result[0]},\n")
                 results.append(result)
             file.write("]\n")

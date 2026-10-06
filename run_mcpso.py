@@ -20,7 +20,7 @@ for run in range(1):
         dims = DIMS,
         upper_bounds = [1000]*DIMS,
         lower_bounds = [-1000]*DIMS,
-        obj_function = sum_diff_pow,
+        obj_function = standard_rosenbrock,
         num_iterations = 3000,
         neighborhood_size = 3,
         merge_policy= IntervalBasedMergePolicy(
@@ -44,6 +44,6 @@ for run in range(1):
     )
 
     mcpso.init()
-    result, d =mcpso.run()
+    result, cv, data =mcpso.run()
     results.append(result)
-    print(d)
+    print(data)

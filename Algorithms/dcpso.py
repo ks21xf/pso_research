@@ -1,6 +1,4 @@
 import numpy as np
-from Policies.interval_based_split_policy import IntervalBasedSplitPolicy
-from Policies.stagnation_based_split_policy import StagnationBasedSplitPolicy
 #import pandas as pd
 
 class DCPSO:
@@ -113,6 +111,7 @@ class DCPSO:
 
     def run(self):
       """runs the algorithm """
+      results = []
 
       for iteration in range(self.num_iterations):
 
@@ -134,4 +133,6 @@ class DCPSO:
               print(f"Best Fitness: {self.obj_function(np.atleast_2d(self.context_vector))}")
               print(len(self.swarms))
 
-      return self.obj_function(np.atleast_2d(self.context_vector)), self.context_vector
+          #collect results (if doing so)
+          results.append(len(self.swarms))
+      return self.obj_function(np.atleast_2d(self.context_vector)), self.context_vector, results

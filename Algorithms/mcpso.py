@@ -146,6 +146,7 @@ class MCPSO:
 
     def run(self):
       """runs the algorithm """
+      results =[[],[]]
 
       for iteration in range(self.num_iterations):
 
@@ -167,4 +168,9 @@ class MCPSO:
               print("iteration",iteration)
               print(f"Best Fitness: {self.obj_function(np.atleast_2d(self.context_vector))}")
               print(len(self.swarms))
-      return self.obj_function(np.atleast_2d(self.context_vector)), self.context_vector
+
+          #collect results (if any)
+          #results.append(len(self.swarms))
+          results[0].append(len(self.swarms))
+          results[1].append(self.obj_function(np.atleast_2d(self.context_vector))[0])
+      return self.obj_function(np.atleast_2d(self.context_vector)), self.context_vector, results

@@ -43,9 +43,9 @@ for run in range(1):
     )
 
     dcpso.init()
-    result, d = dcpso.run()
+    result, cv, data  = dcpso.run()
     results.append(result)
-    print(d)
+    print(cv)
 
-print(results)
+print(data)
 
