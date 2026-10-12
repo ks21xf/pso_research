@@ -1,8 +1,7 @@
 #imports from python files
 from Algorithms import dcpso,mcpso
-from cec2017.functions import *
-from benchmarks.benchmarks import *
-from benchmarks.cec2017 import *
+from cec2017.functions import all_functions
+#from benchmarks.benchmarks import *
 
 from Policies.interval_based_split_policy import IntervalBasedSplitPolicy
 from Policies.stagnation_based_split_policy import StagnationBasedSplitPolicy
@@ -59,37 +58,15 @@ algos = {
     )
 }
 
-all_functions = [
-    (0, bent_cigar),
-    (1, sum_diff_pow),
-    (2, zakharov),
-    (3, rosenbrock),
-    (4, rastrigin),
-    (5, expanded_schaffers_f6),
-    (6, lunacek_bi_rastrigin),
-    (7, non_cont_rastrigin),
-    (8, levy),
-    (9, modified_schwefel),
-    (10, high_conditioned_elliptic),
-    (11, discus),
-    (12, ackley),
-    (13, weierstrass),
-    (14, griewank),
-    (15, katsuura),
-    (16, happy_cat),
-    (17, h_g_bat),
-    (18, expanded_griewanks_plus_rosenbrock),
-    (19, schaffers_f7),
-]
-
-DIMS = 100
-NUM_RUNS = 10
+DIMS = 10
+NUM_RUNS = 2
 MAIN_SEED = 11111
 #for algo_idx, (algo_name, algo) in enumerate(algos.items()):
 algo_name, algo = chosen_algo,algos[chosen_algo]
 with open(f"output_{algo_name}.txt","w") as file:
         file.write(f"ALGORITHM: {algo_name}\n")
-        for f_id, func in all_functions:
+        f_id = 0
+        for func in all_functions:
             results = []
             file.write(f"FUNC: f{f_id}\n")
             file.write(f"RUNS:\n[\n")
@@ -126,7 +103,7 @@ with open(f"output_{algo_name}.txt","w") as file:
                 results.append(result)
             file.write("]\n")
             file.write(f"MEAN:{sum(results)/len(results)}\n")
-
+            f_id+=1
 
             print(results)
 
