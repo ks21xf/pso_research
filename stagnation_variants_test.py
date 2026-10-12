@@ -20,7 +20,6 @@ import argparse
 parser = argparse.ArgumentParser(description="A script for running tests on stagnation variants.")
 parser.add_argument("-algo_name", choices=["stagnationbasedsplitpolicy", "randommergepolicy", "highdiversitybasedmergepolicy","repeatingbasedintervalpolicy","intervalbasedmergepolicy","intervalbasedsplitpolicy","repeatingintervalbasedpolicy"], help="the name of the algo")
 args = parser.parse_args()
-
 chosen_algo = args.algo_name #the chosen algorithm from args
 
 
@@ -58,8 +57,8 @@ algos = {
     )
 }
 
-DIMS = 10
-NUM_RUNS = 2
+DIMS = 100
+NUM_RUNS = 10
 MAIN_SEED = 11111
 #for algo_idx, (algo_name, algo) in enumerate(algos.items()):
 algo_name, algo = chosen_algo,algos[chosen_algo]
