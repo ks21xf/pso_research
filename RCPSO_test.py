@@ -15,8 +15,8 @@ from Policies.interval_based_split_policy import IntervalBasedSplitPolicy
 import numpy as np
 
 
-DIMS = 50
-NUM_RUNS = 3
+DIMS = 100
+NUM_RUNS = 5
 MAIN_SEED = 11111
 phases = [2,5,10,20,40,60,80,100,200,300,400,600]
 
