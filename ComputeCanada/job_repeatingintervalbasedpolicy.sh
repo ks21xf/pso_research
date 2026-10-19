@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time=24:00:00
+#SBATCH --time=48:00:00
 #SBATCH --account=def-bmombuki
 #SBATCH --mem=8G
 cd ..

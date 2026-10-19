@@ -3,7 +3,6 @@ from Algorithms import dcpso,mcpso
 from cec2017.functions import all_functions
 #from benchmarks.benchmarks import *
 
-from Policies.interval_based_split_policy import IntervalBasedSplitPolicy
 from Policies.stagnation_based_split_policy import StagnationBasedSplitPolicy
 from Policies.repeating_interval_based_policy import RepeatingIntervalBasedPolicy
 from Policies.interaction_based_policy import InteractionBasedPolicy
@@ -52,7 +51,7 @@ algos = {
     "repeatingintervalbasedpolicy": RepeatingIntervalBasedPolicy(
             split_factor=2,
             merge_factor=2,
-            num_phases=300,
+            num_phases=80,
             starting_phase='split'
     )
 }
@@ -83,7 +82,8 @@ with open(f"output_{algo_name}.txt","w") as file:
                         obj_function = func,
                         num_iterations = 3000,
                         neighborhood_size = 3,
-                        split_policy = copy.deepcopy(algo)
+                        split_policy = copy.deepcopy(algo),
+                        verbose=False
                     )
                 else:
                      pso = mcpso.MCPSO(
