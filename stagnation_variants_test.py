@@ -14,6 +14,8 @@ from Policies.interval_based_split_policy import IntervalBasedSplitPolicy
 import numpy as np
 import copy
 import argparse
+from statistics import stdev
+
 
 #add and parse args
 parser = argparse.ArgumentParser(description="A script for running tests on stagnation variants.")
@@ -25,7 +27,7 @@ chosen_algo = args.algo_name #the chosen algorithm from args
 algos = {
     "stagnationbasedsplitpolicy" : StagnationBasedSplitPolicy(
         patience = 2,
-        stagnation_threshold =1e-2,
+        stagnation_threshold =1e2,
         split_factor = 3,
         ),
     "randommergepolicy" : RandomMergePolicy(
@@ -62,12 +64,14 @@ MAIN_SEED = 11111
 #for algo_idx, (algo_name, algo) in enumerate(algos.items()):
 algo_name, algo = chosen_algo,algos[chosen_algo]
 with open(f"output_{algo_name}.txt","w") as file:
-        file.write(f"ALGORITHM: {algo_name}\n")
+        file.write("{")
+        file.write(f" 'ALGORITHM': '{algo_name}',\n")
         f_id = 0
         for func in all_functions:
             results = []
-            file.write(f"FUNC: f{f_id}\n")
-            file.write(f"RUNS:\n[\n")
+            file.write(f"'f{f_id+1}':\n")
+            file.write("{")
+            file.write(f"'RUNS':\n[\n")
             for run in range(NUM_RUNS):
 
                 seed = MAIN_SEED + f_id *NUM_RUNS+ run #method to get a unique seed for each run
@@ -100,9 +104,12 @@ with open(f"output_{algo_name}.txt","w") as file:
                 result, *_ = pso.run()
                 file.write(f"{result[0]},\n")
                 results.append(result)
-            file.write("]\n")
-            file.write(f"MEAN:{sum(results)/len(results)}\n")
+            file.write("],\n")
+            file.write(f"'MEAN':{(sum(results)/len(results))[0]},\n")
+            file.write(f"'STD':{np.std(results,ddof=1)},\n")
+            file.write('},')
             f_id+=1
 
             print(results)
+        file.write("}")
 
