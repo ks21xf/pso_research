@@ -51,7 +51,7 @@ algos = {
     "repeatingintervalbasedpolicy": RepeatingIntervalBasedPolicy(
             split_factor=2,
             merge_factor=2,
-            num_phases=80,
+            num_phases=20,
             starting_phase='split'
     )
 }
