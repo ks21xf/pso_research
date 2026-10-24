@@ -26,8 +26,8 @@ chosen_algo = args.algo_name #the chosen algorithm from args
 
 algos = {
     "stagnationbasedsplitpolicy" : StagnationBasedSplitPolicy(
-        patience = 2,
-        stagnation_threshold =1e2,
+        patience = 1,
+        stagnation_threshold =1e4,
         split_factor = 3,
         ),
     "randommergepolicy" : RandomMergePolicy(
