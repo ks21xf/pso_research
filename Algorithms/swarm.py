@@ -186,7 +186,6 @@ class Swarm:
         self.prev_gbest_fit = np.copy(self.gbest_fit)
 
 
-
     def calculate_diversity(self):
         """Calculates the diversity of the swarm by finding the average pairwise Euclidean distances of the swarms.
         The distances have to be scaled because avg distance increases along with dimensions, so any high/low diversity algorithms

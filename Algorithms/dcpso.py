@@ -132,6 +132,12 @@ class DCPSO:
               print("iteration",iteration)
               print(f"Best Fitness: {self.obj_function(np.atleast_2d(self.context_vector))}")
               print(len(self.swarms))
+              strn = ""
+              for l in range(len(self.swarms)):
+                  self.swarms[l].calculate_diversity()
+                  strn = strn + " " +str(self.swarms[l].diversity)
+              print(strn)
+
 
           #collect results (if doing so)
           results.append(len(self.swarms))

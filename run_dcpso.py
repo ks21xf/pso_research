@@ -21,8 +21,8 @@ for value in SE:
         dcpso = DCPSO(
             swarm_size = 100,
             dims = DIMS,
-            upper_bounds = [1000]*DIMS,
-            lower_bounds = [-1000]*DIMS,
+            upper_bounds = [100]*DIMS,
+            lower_bounds = [-100]*DIMS,
             obj_function = standard_rosenbrock,
             num_iterations = 3000,
             neighborhood_size = 3,

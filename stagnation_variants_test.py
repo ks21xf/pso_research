@@ -10,24 +10,28 @@ from Policies.diversity_based_merge_policy import DiversityBasedMergePolicy
 from Policies.random_merge_policy import RandomMergePolicy
 from Policies.interval_based_merge_policy import IntervalBasedMergePolicy
 from Policies.interval_based_split_policy import IntervalBasedSplitPolicy
+from Policies.diversity_based_stagnation_split_policy import DiversityBasedStagnationSplitPolicy
 
 import numpy as np
 import copy
 import argparse
-from statistics import stdev
-
 
 #add and parse args
 parser = argparse.ArgumentParser(description="A script for running tests on stagnation variants.")
-parser.add_argument("-algo_name", choices=["stagnationbasedsplitpolicy", "randommergepolicy", "highdiversitybasedmergepolicy","lowdiversitybasedmergepolicy","intervalbasedmergepolicy","intervalbasedsplitpolicy","repeatingintervalbasedpolicy"], help="the name of the algo")
+parser.add_argument("-algo_name", choices=["stagnationbasedsplitpolicy", "randommergepolicy", "highdiversitybasedmergepolicy","lowdiversitybasedmergepolicy","intervalbasedmergepolicy","intervalbasedsplitpolicy","repeatingintervalbasedpolicy","diversitybasedstagnationsplitpolicy"], help="the name of the algo")
 args = parser.parse_args()
 chosen_algo = args.algo_name #the chosen algorithm from args
 
 
 algos = {
+    "diversitybasedstagnationsplitpolicy" : DiversityBasedStagnationSplitPolicy(
+        patience = 3,
+        stagnation_threshold =0.1,
+        split_factor = 3,
+        ),
     "stagnationbasedsplitpolicy" : StagnationBasedSplitPolicy(
-        patience = 1,
-        stagnation_threshold =1e4,
+        patience = 2,
+        stagnation_threshold =1e-2,
         split_factor = 3,
         ),
     "randommergepolicy" : RandomMergePolicy(
@@ -58,8 +62,8 @@ algos = {
     )
 }
 
-DIMS = 100
-NUM_RUNS = 10
+DIMS = 10
+NUM_RUNS = 1
 MAIN_SEED = 11111
 #for algo_idx, (algo_name, algo) in enumerate(algos.items()):
 algo_name, algo = chosen_algo,algos[chosen_algo]
@@ -77,7 +81,7 @@ with open(f"output_{algo_name}.txt","w") as file:
                 seed = MAIN_SEED + f_id *NUM_RUNS+ run #method to get a unique seed for each run
                 np.random.seed(seed)
 
-                if (algo_name == "stagnationbasedsplitpolicy" or algo_name =="intervalbasedsplitpolicy" or algo_name == "repeatingintervalbasedpolicy"):
+                if (algo_name == "stagnationbasedsplitpolicy" or algo_name =="intervalbasedsplitpolicy" or algo_name == "repeatingintervalbasedpolicy" or algo_name == "diversitybasedstagnationsplitpolicy"):
                     pso = dcpso.DCPSO(
                         swarm_size = 100,
                         dims = DIMS,
@@ -92,7 +96,7 @@ with open(f"output_{algo_name}.txt","w") as file:
                 else:
                      pso = mcpso.MCPSO(
                         swarm_size = 100,
-                        dims = 100,
+                        dims = DIMS,
                         upper_bounds = [100]*DIMS,
                         lower_bounds = [-100]*DIMS,
                         obj_function = func,
